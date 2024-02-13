@@ -16,7 +16,8 @@ function goto
 : ngrok
 clear
 echo "Go to: https://dashboard.ngrok.com/get-started/your-authtoken"
-./ngrok authtoken 2cJKIsujxlOJedeNpc3EwkHJjA8_5TnrEyhzSBZMGWY52hf4L
+read -p "Paste Ngrok Authtoken: " CRP
+./ngrok authtoken $CRP 
 
 clear
 echo "Repo: https://github.com/kmille36/Docker-Ubuntu-Desktop-NoMachine"
@@ -31,15 +32,15 @@ echo "sa - South America (Sao Paulo)"
 echo "jp - Japan (Tokyo)"
 echo "in - India (Mumbai)"
 read -p "choose ngrok region: " CRP
-./ngrok tcp --region $CRP 4884 &>/dev/null &
+./ngrok tcp --region $CRP 4000 &>/dev/null &
 sleep 1
-if curl --show-error http://127.0.0.1:3000/api/tunnels  > /dev/null 2>&1; then echo OK; else echo "Ngrok Error! Please try again!" && sleep 1 && goto ngrok; fi
+if curl --silent --show-error http://127.0.0.1:4040/api/tunnels  > /dev/null 2>&1; then echo OK; else echo "Ngrok Error! Please try again!" && sleep 1 && goto ngrok; fi
 docker run --rm -d --network host --privileged --name nomachine-xfce4 -e PASSWORD=123456 -e USER=user --cap-add=SYS_PTRACE --shm-size=1g thuonghai2711/nomachine-ubuntu-desktop:windows10
 clear
 echo "NoMachine: https://www.nomachine.com/download"
 echo Done! NoMachine Information:
 echo IP Address:
-curl --silent --show-error http://127.0.0.1:3000/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' 
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' 
 echo User: user
 echo Passwd: 123456
 echo "VM can't connect? Restart Cloud Shell then Re-run script."
