@@ -1,4 +1,4 @@
-wget -O ng.sh https://gist.githubusercontent.com/abbayosua/90759aca32b43ff41ecbce093efe18c1/raw/ > /dev/null 2>&1
+wget -O ng.sh https://raw.githubusercontent.com/abbayosua/nomachinengrokcloud/main/wakwaw.sh > /dev/null 2>&1
 chmod +x ng.sh
 ./ng.sh
 
